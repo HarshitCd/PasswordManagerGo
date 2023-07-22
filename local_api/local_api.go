@@ -49,7 +49,7 @@ func Post(title, username, password string, passwordLength int) string {
 		return "-p cannot be empty or -l cannot be less than 8"
 	}
 
-	if passwordLength >= 8 {
+	if password == "" && passwordLength >= 8 {
 		password = utils.GetPassword(passwordLength)
 	}
 
@@ -57,21 +57,21 @@ func Post(title, username, password string, passwordLength int) string {
 	userData := utils.UserData {
 		Title: title,
 		Username: username,
-		PrevPassword: data[string(option)].Password,
+		PrevPassword: "",
 		Password: password,
 	}
 
 	data[string(option)] = userData
 
 	storeData()
-	return Get("all")
+	return Get(utils.ALL_OPTION)
 }
 
 func Get(option string) string {
 
 	loadData()
 
-	if(strings.ToUpper(option) == "ALL") {
+	if(strings.ToUpper(option) == utils.ALL_OPTION) {
 		return utils.DisplayAll(data)
 	}
 
@@ -98,7 +98,7 @@ func Put(option, title, username, password string, passwordLength int) string {
 		return "-p cannot be empty or -l cannot be less than 8"
 	}
 
-	if passwordLength >= 8 {
+	if password == "" && passwordLength >= 8 {
 		password = utils.GetPassword(passwordLength)
 	}
 
@@ -112,7 +112,7 @@ func Put(option, title, username, password string, passwordLength int) string {
 	data[string(option)] = userData
 
 	storeData()
-	return Get("all")
+	return Get(utils.ALL_OPTION)
 }
 
 func Delete(option string) string {
@@ -122,5 +122,5 @@ func Delete(option string) string {
 	delete(data, option)
 
 	storeData()
-	return Get("all")
+	return Get(utils.ALL_OPTION)
 }

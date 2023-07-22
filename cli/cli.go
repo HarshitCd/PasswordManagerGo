@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	localapi "example.com/api"
+	"example.com/utils"
 )
 
 func main() {
@@ -20,24 +21,24 @@ func main() {
 	// ./cli PUT username {data} pass_len {data}
 	// ./cli DELETE <option>
 
-	operation := flag.String("op", "GET", "specify your operation")
-	option := flag.String("o", "all", "specify your option")
-	title := flag.String("t", "", "enter a title")
-	username := flag.String("u", "", "enter a unsername")
-	password := flag.String("p", "", "enter a password")
-	passwordLength := flag.Int("l", 8, "enter your desired password length")
+	operation := flag.String(utils.OPERATION_FLAG, utils.DEFAULT_OPERATION, "specify your operation")
+	option := flag.String(utils.OPTION_FLAG, utils.DEFAULT_OPTION, "specify your option")
+	title := flag.String(utils.TITLE_FLAG, utils.DEFAULT_TITLE, "enter a new title")
+	username := flag.String(utils.USERNAME_FLAG, utils.DEFAULT_USERNAME, "enter a new unsername")
+	password := flag.String(utils.PASSWORD_FLAG, utils.DEFAULT_PASSWORD, "enter a new password")
+	passwordLength := flag.Int(utils.PASSWORD_LENGTH_FLAG, utils.DEFAULT_PASSWORD_LENGTH, "enter your desired password length")
 
 	flag.Parse()
 	
 	message := ""
 	switch strings.ToUpper(*operation) {
-		case "GET":
+		case utils.GET_OPERATION:
 			message = localapi.Get(*option)
-		case "POST":
+		case utils.POST_OPERATION:
 			message = localapi.Post(*title, *username, *password, *passwordLength)
-		case "PUT":
+		case utils.PUT_OPERATION:
 			message = localapi.Put(*option, *title, *username, *password, *passwordLength)
-		case "DELETE":
+		case utils.DELETE_OPERATION:
 			message = localapi.Delete(*option)
 		default:
 			message = fmt.Sprintf("%v isn't a valid option", strings.ToUpper(*operation))

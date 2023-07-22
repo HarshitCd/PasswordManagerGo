@@ -1,26 +1,34 @@
 package utils
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/jedib0t/go-pretty/v6/table"
+)
 
 
 func DisplayAll(data map[string]UserData) string {
 
-	message := ""
+    t := table.NewWriter()
 
+	t.AppendHeader(table.Row{"Option", "Title", "Username"})
 	for option := range data {
-		message += fmt.Sprintf("option:%v\ntitle: %s\nusername: %s\n---------------------------\n", option, data[option].Title, data[option].Username)
+		t.AppendRow(table.Row{option, data[option].Title, data[option].Username})
 	}
 
-	return message
+	return fmt.Sprintf(t.Render())
 }
 
 func DisplayRequired(data map[string]UserData, option string) string {
-	for key := range data {
-		if key == option {
-			return fmt.Sprintf("username: %v\npassword: %v\nprev password: %v", data[option].Username, 
-										data[option].Password, data[option].PrevPassword)
-		}
+	
+	if _, ok := data[option]; !ok {
+		return "The id does not exist"
 	}
 
-	return ""
+	t := table.NewWriter()
+
+	t.AppendHeader(table.Row{"Option", "Title", "Username", "Password"})
+	t.AppendRow(table.Row{option, data[option].Title, data[option].Username, data[option].Password})
+
+	return fmt.Sprintf(t.Render())
 }
