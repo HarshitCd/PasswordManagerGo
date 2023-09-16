@@ -3,6 +3,7 @@ package utils
 const (
 
 	OPERATION_FLAG = "op"
+	SHOW_FLAG = "s"
 	OPTION_FLAG = "o"
 	TITLE_FLAG = "t"
 	USERNAME_FLAG = "u"
@@ -10,6 +11,7 @@ const (
 	PASSWORD_LENGTH_FLAG = "l"
 
 	DEFAULT_OPERATION = "GET"
+	DEFAULT_SHOW = false
 	DEFAULT_OPTION = "ALL"
 	DEFAULT_TITLE = ""
 	DEFAULT_USERNAME = ""

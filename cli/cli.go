@@ -22,7 +22,8 @@ func main() {
 	// ./cli DELETE <option>
 
 	operation := flag.String(utils.OPERATION_FLAG, utils.DEFAULT_OPERATION, "specify your operation")
-	option := flag.String(utils.OPTION_FLAG, utils.DEFAULT_OPTION, "specify your option")
+	show := flag.Bool(utils.SHOW_FLAG, utils.DEFAULT_SHOW, "show the password in display")
+	option := flag.String(utils.OPTION_FLAG, utils.DEFAULT_OPTION, "specify your password UUID")
 	title := flag.String(utils.TITLE_FLAG, utils.DEFAULT_TITLE, "enter a new title")
 	username := flag.String(utils.USERNAME_FLAG, utils.DEFAULT_USERNAME, "enter a new unsername")
 	password := flag.String(utils.PASSWORD_FLAG, utils.DEFAULT_PASSWORD, "enter a new password")
@@ -33,7 +34,7 @@ func main() {
 	message := ""
 	switch strings.ToUpper(*operation) {
 		case utils.GET_OPERATION:
-			message = localapi.Get(*option)
+			message = localapi.Get(*option, *show)
 		case utils.POST_OPERATION:
 			message = localapi.Post(*title, *username, *password, *passwordLength)
 		case utils.PUT_OPERATION:

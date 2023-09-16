@@ -64,14 +64,17 @@ func Post(title, username, password string, passwordLength int) string {
 	data[string(option)] = userData
 
 	storeData()
-	return Get(utils.ALL_OPTION)
+	return Get(utils.ALL_OPTION, true)
 }
 
-func Get(option string) string {
+func Get(option string, show bool) string {
 
 	loadData()
 
 	if(strings.ToUpper(option) == utils.ALL_OPTION) {
+		if(show) {
+			return utils.DisplayAllWithPasswd(data)
+		}
 		return utils.DisplayAll(data)
 	}
 
@@ -112,7 +115,7 @@ func Put(option, title, username, password string, passwordLength int) string {
 	data[string(option)] = userData
 
 	storeData()
-	return Get(utils.ALL_OPTION)
+	return Get(utils.ALL_OPTION, true)
 }
 
 func Delete(option string) string {
@@ -122,5 +125,5 @@ func Delete(option string) string {
 	delete(data, option)
 
 	storeData()
-	return Get(utils.ALL_OPTION)
+	return Get(utils.ALL_OPTION, false)
 }

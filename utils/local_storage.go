@@ -16,7 +16,7 @@ type UserData struct {
 }
 
 func GetData() (map[string]UserData, error) {
-	yamlData, err := ioutil.ReadFile("../local_data/password_details.yml")
+	yamlData, err := ioutil.ReadFile("/Users/harshitcd/.config/passswdmanagergo/password_details.yml")
 	if err != nil {
 		fmt.Printf("Error reading file: %v\n", err)
 		return nil, err
@@ -40,7 +40,7 @@ func StoreData(data map[string]UserData) error {
 	}
 
 	// Write the YAML data to a file
-	err = ioutil.WriteFile("../local_data/password_details.yml", yamlData, 0644)
+	err = ioutil.WriteFile("/Users/harshitcd/.config/passswdmanagergo/password_details.yml", yamlData, 0644)
 	if err != nil {
 		return err
 	}
@@ -49,7 +49,7 @@ func StoreData(data map[string]UserData) error {
 }
 
 func GetDataJson() (map[string]UserData, error) {
-	jsonData, err := ioutil.ReadFile("../local_data/password_details.json")
+	jsonData, err := ioutil.ReadFile("/Users/harshitcd/.config/passswdmanagergo/password_details.yml")
 	if err != nil {
 		fmt.Printf("Error reading file: %v\n", err)
 		return nil, err
@@ -72,7 +72,7 @@ func StoreDataJson(data map[string]UserData) error {
 	}
 
 	// Write the JSON data to a file
-	err = ioutil.WriteFile("../local_data/password_details.json", jsonData, 0644)
+	err = ioutil.WriteFile("/Users/harshitcd/.config/passswdmanagergo/password_details.yml", jsonData, 0644)
 	if err != nil {
 		return err
 	}

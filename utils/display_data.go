@@ -19,6 +19,18 @@ func DisplayAll(data map[string]UserData) string {
 	return fmt.Sprintf(t.Render())
 }
 
+func DisplayAllWithPasswd(data map[string]UserData) string {
+
+    t := table.NewWriter()
+
+	t.AppendHeader(table.Row{"Option", "Title", "Username", "Password"})
+	for option := range data {
+		t.AppendRow(table.Row{option, data[option].Title, data[option].Username, data[option].Password})
+	}
+
+	return fmt.Sprintf(t.Render())
+}
+
 func DisplayRequired(data map[string]UserData, option string) string {
 	
 	if _, ok := data[option]; !ok {
